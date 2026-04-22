@@ -2,10 +2,53 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="Nom" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>je2</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 24px;
+        background: #111;
+      }
+      button {
+        width: 120px;
+        height: 60px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #fff;
+        cursor: pointer;
+        transition: transform 0.1s, opacity 0.1s;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+      }
+      button:hover { opacity: 0.85; transform: scale(1.05); }
+      button:active { transform: scale(0.96); }
+    </style>
   </head>
   <body>
-    <p>meow</p>
+    <button style="background:#e74c3c" onclick="alert('Red!')">Red</button>
+    <button style="background:#e67e22" onclick="alert('Orange!')">Orange</button>
+    <button style="background:#f1c40f;color:#333" onclick="alert('Yellow!')">Yellow</button>
+    <button style="background:#2ecc71" onclick="alert('Green!')">Green</button>
+    <button style="background:#1abc9c" onclick="alert('Teal!')">Teal</button>
+    <button style="background:#3498db" onclick="alert('Blue!')">Blue</button>
+    <button style="background:#2980b9" onclick="alert('Dark Blue!')">Dark Blue</button>
+    <button style="background:#9b59b6" onclick="alert('Purple!')">Purple</button>
+    <button style="background:#8e44ad" onclick="alert('Violet!')">Violet</button>
+    <button style="background:#e91e63" onclick="alert('Pink!')">Pink</button>
+    <button style="background:#ff5722" onclick="alert('Deep Orange!')">Deep Orange</button>
+    <button style="background:#4caf50" onclick="alert('Lime Green!')">Lime Green</button>
+    <button style="background:#00bcd4" onclick="alert('Cyan!')">Cyan</button>
+    <button style="background:#673ab7" onclick="alert('Indigo!')">Indigo</button>
+    <button style="background:#795548" onclick="alert('Brown!')">Brown</button>
+    <button style="background:#607d8b" onclick="alert('Slate!')">Slate</button>
+    <button style="background:#f06292" onclick="alert('Rose!')">Rose</button>
+    <button style="background:#aed581;color:#333" onclick="alert('Light Green!')">Light Green</button>
+    <button style="background:#ff8f00" onclick="alert('Amber!')">Amber</button>
+    <button style="background:#26c6da" onclick="alert('Sky!')">Sky</button>
   </body>
 </html>
