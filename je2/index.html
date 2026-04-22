@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Clicky buttons</title>
     <script>
-      function btnClick(btn) {
+      function playClick() {
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
         const buf = ctx.createBuffer(1, ctx.sampleRate * 0.04, ctx.sampleRate);
         const data = buf.getChannelData(0);
@@ -21,6 +21,64 @@
         gain.connect(ctx.destination);
         src.start();
       }
+
+      function explode(btn) {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const dur = 1.2;
+        const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
+        const data = buf.getChannelData(0);
+        for (let i = 0; i < data.length; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 2);
+        }
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+        src.connect(gain);
+        gain.connect(ctx.destination);
+        src.start();
+
+        btn.style.transition = 'transform 0.1s, opacity 0.6s, background 0.1s';
+        btn.style.background = '#ff4400';
+        btn.style.transform = 'scale(3)';
+        btn.style.opacity = '0';
+        btn.disabled = true;
+
+        const emojis = ['💥','🔥','✨','💣'];
+        for (let i = 0; i < 12; i++) {
+          const p = document.createElement('span');
+          p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          p.style.cssText = `position:fixed;font-size:2rem;pointer-events:none;
+            left:${btn.getBoundingClientRect().left + 40}px;
+            top:${btn.getBoundingClientRect().top + 20}px;
+            transition:transform 0.8s ease-out,opacity 0.8s;opacity:1;`;
+          document.body.appendChild(p);
+          const angle = (i / 12) * 2 * Math.PI;
+          const dist = 80 + Math.random() * 80;
+          requestAnimationFrame(() => {
+            p.style.transform = `translate(${Math.cos(angle)*dist}px,${Math.sin(angle)*dist}px)`;
+            p.style.opacity = '0';
+          });
+          setTimeout(() => p.remove(), 900);
+        }
+
+        setTimeout(() => btn.remove(), 700);
+      }
+
+      function btnClick(btn) {
+        if (btn === dangerBtn && Math.random() < 0.5) {
+          explode(btn);
+        } else {
+          playClick();
+        }
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        const btns = document.querySelectorAll('button');
+        window.dangerBtn = btns[Math.floor(Math.random() * btns.length)];
+        dangerBtn.style.outline = '3px dashed red';
+      });
     </script>
     <style>
       body {
