@@ -85,9 +85,15 @@
           explode(btn);
           gameOver();
         } else {
-          playClick();
-          points++;
-          updateScore();
+          const count = (btn._clicks = (btn._clicks || 0) + 1);
+          if (count > 20) {
+            explode(btn);
+            gameOver();
+          } else {
+            playClick();
+            points++;
+            updateScore();
+          }
         }
       }
 
