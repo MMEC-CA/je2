@@ -67,6 +67,24 @@
       }
 
       let points = 0;
+      let totalClicks = 0;
+
+      function spawnDuck() {
+        const duck = document.createElement('div');
+        const ducks = ['🦆','🐥','🐧','🦉'];
+        duck.textContent = ducks[Math.floor(Math.random() * ducks.length)];
+        const fromLeft = Math.random() < 0.5;
+        const top = 20 + Math.random() * (window.innerHeight - 80);
+        duck.style.cssText = `position:fixed;font-size:2.5rem;top:${top}px;
+          ${fromLeft ? 'left:-60px' : 'right:-60px'};
+          transition:transform 4s linear;z-index:200;pointer-events:none;
+          transform:scaleX(${fromLeft ? 1 : -1});`;
+        document.body.appendChild(duck);
+        requestAnimationFrame(() => {
+          duck.style.transform = `scaleX(${fromLeft ? 1 : -1}) translateX(${fromLeft ? window.innerWidth + 120 : -(window.innerWidth + 120)}px)`;
+        });
+        setTimeout(() => duck.remove(), 4200);
+      }
 
       function updateScore() {
         document.getElementById('score').textContent = 'Points: ' + points;
@@ -92,6 +110,8 @@
           } else {
             playClick();
             points++;
+            totalClicks++;
+            if (totalClicks % 10 === 0) spawnDuck();
             updateScore();
           }
         }
