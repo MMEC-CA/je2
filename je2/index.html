@@ -66,11 +66,28 @@
         setTimeout(() => btn.remove(), 700);
       }
 
+      let points = 0;
+
+      function updateScore() {
+        document.getElementById('score').textContent = 'Points: ' + points;
+      }
+
+      function gameOver() {
+        points = 0;
+        updateScore();
+        const overlay = document.getElementById('gameover');
+        overlay.style.display = 'flex';
+        setTimeout(() => overlay.style.display = 'none', 2000);
+      }
+
       function btnClick(btn) {
         if (btn === dangerBtn && Math.random() < 0.5) {
           explode(btn);
+          gameOver();
         } else {
           playClick();
+          points++;
+          updateScore();
         }
       }
 
@@ -102,9 +119,34 @@
       }
       button:hover { opacity: 0.85; transform: scale(1.05); }
       button:active { transform: scale(0.96); }
+      #score {
+        position: fixed;
+        top: 16px;
+        right: 24px;
+        color: #fff;
+        font-size: 22px;
+        font-weight: bold;
+        font-family: sans-serif;
+        z-index: 10;
+      }
+      #gameover {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.75);
+        color: #ff4400;
+        font-size: 64px;
+        font-weight: bold;
+        font-family: sans-serif;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+      }
     </style>
   </head>
   <body>
+    <div id="score">Points: 0</div>
+    <div id="gameover">💥 GAME OVER 💥</div>
     <button style="background:#ffffff" onclick="btnClick(this)">   </button>
     <button style="background:#ffffff" onclick="btnClick(this)">   </button>
     <button style="background:#ffffff" onclick="btnClick(this)">   </button>
