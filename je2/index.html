@@ -95,7 +95,7 @@
         updateScore();
         const overlay = document.getElementById('gameover');
         overlay.style.display = 'flex';
-        setTimeout(() => overlay.style.display = 'none', 2000);
+        setTimeout(() => location.reload(), 2500);
       }
 
       function btnClick(btn) {
