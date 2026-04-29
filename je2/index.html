@@ -120,6 +120,11 @@
       window.addEventListener('DOMContentLoaded', () => {
         const btns = document.querySelectorAll('button');
         window.dangerBtn = btns[Math.floor(Math.random() * btns.length)];
+        setInterval(() => {
+          if (!dangerBtn) return;
+          dangerBtn.style.background = '#ff0000';
+          setTimeout(() => { dangerBtn.style.background = '#ffffff'; }, 1000);
+        }, 3 * 60 * 1000);
       });
     </script>
     <style>
