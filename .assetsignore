@@ -1,6 +1,8 @@
 .git/**
 .github/**
 .devcontainer/**
+classroom-refs
+classroom-refs/**
 src/**
 .gitignore
 .assetsignore

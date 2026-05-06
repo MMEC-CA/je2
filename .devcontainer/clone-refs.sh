@@ -55,4 +55,21 @@ for repo in $REPOS; do
   count=$((count + 1))
 done
 
+# Create a project-local symlink so AI tools running from the project root
+# can read peer repos as if they were a child folder. .gitignored + .assetsignored
+# so it never reaches GitHub or wrangler.
+LINK="$PWD/classroom-refs"
+if [ -L "$LINK" ]; then
+  if [ "$(readlink "$LINK")" != "$REFS_DIR" ]; then
+    rm -f "$LINK"
+    ln -s "$REFS_DIR" "$LINK"
+    echo "Re-linked $LINK -> $REFS_DIR"
+  fi
+elif [ -e "$LINK" ]; then
+  echo "WARN: $LINK exists and is not a symlink — leaving it alone"
+else
+  ln -s "$REFS_DIR" "$LINK"
+  echo "Linked $LINK -> $REFS_DIR"
+fi
+
 echo "=== $(date -u +%FT%TZ) clone-refs done — processed $count ref repos ==="
